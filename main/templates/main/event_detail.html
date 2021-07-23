@@ -1,0 +1,46 @@
+{% extends 'main/events.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+<div class='container'>
+    <h1 class='page-header'> Hello {{request.user|title}} </h1>
+</div>
+
+<div class="d-flex flex-column bd-highlight ">
+    <div class="p-2 bd-highlight justify-content-center"> <h1 > {{event.title}}</h1></div>
+    <div class="p-2 bd-highlight"> <h3>Description:</h3> <p>{{event.description}}</p></div>
+    <div class="p-2 bd-highlight">
+        <h3> Event Date:</h3>
+        <p>{{event.event_date}}</p>
+    </div>
+    <div class="p-2 bd-highlight">
+        <h3>Location:</h3>
+        <p>{{event.location}}</p>
+    </div>
+    
+    
+    <div class="d-flex justify-content-around">
+        <div class="p-2 bd-highlight">
+            <h3>Seats:</h3>
+            <p>{{event.seats}} seats left available</p>
+        </div>
+        {% if event.booked %}
+            <h1>you are already booked to the event </h1>
+        {%else%}
+        <div class="p-2 bd-highlight">
+            <button type="button" class="btn btn-outline-primary"> <a href="{% url 'main:book' event.id %}">Book Event</a></button>
+        </div>
+    </div>
+        {% endif %}
+
+    {% for discount in event.discount_set.all %}
+    <div class="p-2 bd-highlight">
+        <h3>Event has a special Discount of: <b> {{discount.discount}}</b> for individuals above age of {{discount.discount_age}}  </h3>
+    </div>
+    {%empty%}
+
+    {%endfor%}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends 'accounts/events.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+<div class="header-bar">
+    <h1>Register</h1>
+</div>
+
+<div class="card-body">
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input class="button" type="submit" value="Register">
+    </form>
+    <p>Don't have an account? <a href="{% url 'accounts:login' %}"> Login </a></p>
+</div>
+
+{% endblock content %}

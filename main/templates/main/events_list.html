@@ -1,0 +1,88 @@
+{% extends 'main/events.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+<div class='container text-center py-5'>
+    <h1 class='page-header'> Hello {{request.user|title}} </h1>
+</div>
+
+<!-- <div class="container mx-auto"> 
+    <form method= 'get' action="">
+        {{myfilter.form}}
+        <button class="btn btn-primary" type="submit" > Search </button>
+    </form>
+</div> -->
+
+<div class="container mt-3 mb-3 mx-auto " style=" width: 100%">
+    <table class = 'table table-striped table-bordered mydatatable'>
+        <thead >
+            <tr>
+                <th class='th-sm'>Event</th>
+                <th class='th-sm'>Region</th>
+                <th class='th-sm'>Date</th>
+                <th class='th-sm'>Available Seats</th>
+                <th class='th-sm'>Booked Status</th>
+                <th class='th-sm'>Info</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for event in myfilter.qs %}
+            {% if event.booked %}
+            <tr>
+                <td> {{event.title}}</td>
+                <td>{{event.location}}</td>
+                <td>{{event.event_date}}</td>
+                <td>{{event.seats}}</td>
+                <td>
+                    <div class="task-complete-icon mx-auto my-auto"></div>
+                </td>
+                <td> <a href="{% url 'main:detail' event.id %}"><button type="button" class="btn btn-outline-info">See detail</button></a></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+
+
+
+
+            {% for event in myfilter.qs %}
+            {% if not event.booked %}
+            <tr>
+                <td> {{event.title}}</td>
+                <td>{{event.location}}</td>
+                <td>{{event.event_date}}</td>
+                <td>{{event.seats}}</td>
+                <td>
+                    <div class="task-incomplete-icon mx-auto my-auto"></div>
+                </td>
+                <td> <a href="{% url 'main:detail' event.id %}"><button type="button" class="btn btn-outline-info">See detail</button></a></td>
+            </tr>
+            {% endif %}
+
+            {% empty %}
+            <h3> No Event currently available</h3>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<style>
+    .task-complete-icon {
+        height: 20px;
+        width: 20px;
+        background-color: rgb(105, 192, 105);
+        border-radius: 50%;
+      }
+
+      .task-incomplete-icon {
+        height: 20px;
+        width: 20px;
+        background-color: rgb(218, 218, 218);
+        border-radius: 50%;
+</style>
+{% endblock%}
+
+
+
