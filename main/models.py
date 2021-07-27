@@ -28,6 +28,9 @@ class Event(models.Model):
     age_limit = models.IntegerField(null=True)
     guests = models.ManyToManyField(User, through='Guest')
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         ordering = ['booked']
 

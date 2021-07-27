@@ -7,6 +7,7 @@
 <form method="POST" action="{% url 'main:eventadd' %}" id="groupForm">
     {% csrf_token %}
     {% bootstrap_form form %}
+    {% bootstrap_form form_2 %}
     <input type="submit" value="Add" class="btn btn-primary btn-large">
 </form>
 
